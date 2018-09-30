@@ -30,9 +30,10 @@ RCT_EXPORT_METHOD(animateStrokes)
     [self.characterView animateStrokes];
 }
 
+RCT_EXPORT_VIEW_PROPERTY(onComplete, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(character, NSString *)
+RCT_EXPORT_VIEW_PROPERTY(strokeColor, UIColor *)
 RCT_EXPORT_VIEW_PROPERTY(quiz, BOOL)
 
 
 @end
-  

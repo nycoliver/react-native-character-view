@@ -4,12 +4,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RCTBridgeModule.h"
+#import <React/RCTView.h>
+#import <React/RCTBridgeModule.h>
 
 
 @interface RNCharacterView : UIView
 
-- (void)animateCharacters:(NSString *)characters;
 - (void)animateStrokes;
+@property (nonatomic, copy) RCTBubblingEventBlock onComplete;
 
 @end
