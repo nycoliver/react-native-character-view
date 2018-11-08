@@ -322,15 +322,13 @@
     }
     
     if (_currentStroke == [_strokeLayers count]) {
-        if (self.quiz) {
-            if (_totalMistakes <= 1) {
-                for (CAShapeLayer *layer in self.layer.sublayers) {
-                    [self animate:layer toColor:[UIColor colorWithRed:0.30 green:0.85 blue:0.39 alpha:1.0]];
-                }
-            } else {
-                for (CAShapeLayer *layer in self.layer.sublayers) {
-                    [self animate:layer toColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:1.0]];
-                }
+        if (_totalMistakes <= 1) {
+            for (CAShapeLayer *layer in _strokeLayers) {
+                [self animate:layer toColor:[UIColor colorWithRed:0.30 green:0.85 blue:0.39 alpha:1.0]];
+            }
+        } else {
+            for (CAShapeLayer *layer in _strokeLayers) {
+                [self animate:layer toColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:1.0]];
             }
         }
         
@@ -339,13 +337,17 @@
         }
         
         if (!self.quiz) {
-            for (CAShapeLayer *layer in _strokeLayers) {
-                [layer removeFromSuperlayer];
-            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                for (CAShapeLayer *layer in _strokeLayers) {
+                    [layer removeFromSuperlayer];
+                }
+                
+                _currentStroke = 0;
+                _strokeAttempts = 0;
+                _totalMistakes = 0;
+            });
             
-            _currentStroke = 0;
-            _strokeAttempts = 0;
-            _totalMistakes = 0;
         }
     }
 }
